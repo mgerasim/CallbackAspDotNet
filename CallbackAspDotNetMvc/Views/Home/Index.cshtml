@@ -1,5 +1,102 @@
-﻿@{
-    ViewBag.Title = "Index";
-}
+﻿
+<script>
+        var urlDoCall =  "@Url.Action("doCall", "Home")";
+</script>
 
-<h2>Index</h2>
+
+
+<script id="templates/tabs.html" type="text/ng-template">
+    <ion-tabs class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+        
+        <ion-tab title="Вызов" icon="ion-email" href="#/tab/call">
+            <ion-nav-view name="call-tab"></ion-nav-view>
+        </ion-tab>
+        
+        <ion-tab title="Search" icon="ion-search" href="#/tab/home">
+            <ion-nav-view name="home-tab"></ion-nav-view>
+        </ion-tab>
+        <ion-tab title="Settings" icon="ion-settings" href="#/tab/about">
+            <ion-nav-view name="about-tab"></ion-nav-view>
+        </ion-tab>
+        <ion-tab title="Sign Out" icon="ion-power" ui-sref="tabs.contact">
+            <ion-nav-view name="contact-tab"></ion-nav-view>
+        </ion-tab>
+    </ion-tabs>
+</script>
+
+
+<script id="templates/call.html" type="text/ng-template">
+    <ion-view view-title="Обратный вызов">
+        <ion-content>
+            <div class="list">
+                <label class="item item-input">
+                    <input type="text" id="phone-bgn" placeholder="Телефон А: 79241112233">
+                </label>
+                <label class="item item-input">
+                    <input type="text" id="phone-end" placeholder="Телефон B: 79143332211">
+                </label>
+
+            </div>
+
+            <button class="button button-full button-positive icon-right ion-chevron-right" ng-click="doCall()">
+                Выполнить
+            </button>
+
+        </ion-content>
+    </ion-view>
+</script>
+
+<script id="templates/home.html" type="text/ng-template">
+    <ion-view view-title="Search a Movie Database">
+        <ion-content>
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="search" placeholder="Search" ng-model="selected.movieName" ng-change="searchMovieDB()">
+            </label>
+            <ion-list>
+                <div class="list">
+
+                    <a ng-repeat="movie in movies  | filter: greaterThan('vote_average') | limitTo:settings.itemsPerPage" href="#/movie/{{movie.id}}" class="item item-thumbnail-left">
+                        <img ng-src="https://image.tmdb.org/t/p/w92{{movie.poster_path}}" onerror="this.src = 'https://www.ginesisnatural.com/images/no_image.jpg';">
+                        <h2><strong>{{movie.original_title}}</strong></h2>
+                        <h4>Release Date: <strong>{{movie.release_date}}</strong></h4>
+                        <h4>Average score: <strong>{{movie.vote_average}}</strong></h4>
+                    </a>
+
+                </div>
+            </ion-list>
+        </ion-content>
+    </ion-view>
+</script>
+<script id="templates/settings.html" type="text/ng-template">
+    <ion-view view-title="Application Settings">
+        <ion-content>
+            <div class="list">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label"><strong>API Key<strong></span>
+                    <input type="text" placeholder="API Key" ng-model="settings.apiKey">
+                </label>
+                <div class="item item-divider">
+                    Items Per Page : {{settings.itemsPerPage}}
+                </div>
+                <div class="item range range-positive">
+                    <i class="icon ion-ios7-sunny-outline">1</i>
+                    <input type="range" name="volume" min="1" max="10" value="4" ng-model="settings.itemsPerPage">
+                    <i class="icon ion-ios7-sunny">10</i>
+                </div>
+                <div class="item item-divider">
+                    Minimum Average Score : {{settings.minimumScore}}
+                </div>
+                <div class="item range range-positive">
+                    <i class="icon ion-ios7-sunny-outline">1</i>
+                    <input type="range" name="volume" min="1" max="10" value="4" ng-model="settings.minimumScore">
+                    <i class="icon ion-ios7-sunny">10</i>
+                </div>
+            </div>
+        </ion-content>
+    </ion-view>
+</script>
+<script id="templates/signout.html" type="text/ng-template">
+    <ion-view title="Sign Out">
+    </ion-view>
+</script>

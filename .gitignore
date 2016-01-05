@@ -230,4 +230,7 @@ documents/
 *LOCAL*
 *REMOTE*
 *.orig
-GeoSpaceTrack/Sources/temp/
+GeoSpace
+Track/Sources/temp/
+
+Callback.ini
