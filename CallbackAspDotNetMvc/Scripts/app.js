@@ -110,16 +110,81 @@ app.controller('HomeCtrl', function ($scope, $ionicSideMenuDelegate, Movies) {
 
     };
 
-    $scope.doCall = function () {
-        var theUrl = window.urlDoCall +
-            "?phonebgn=" + document.getElementById("phone-bgn").value +
-            "&phoneend=" + document.getElementById("phone-end").value ;
-        
+    $scope.doCall = function ($name, $phoneBgn, $phoneEnd) {
+
+        return Call($name, $phoneBgn, $phoneEnd);
+    };
+
+    $scope.UpdateSchema = function () {
+        var theUrl = window.urlUpdateSchema ;
+
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", theUrl, false); // false for synchronous request
         xmlHttp.send(null);
+
+        var divItem = document.createElement("div");
+        divItem.setAttribute("class", "item item-button-right");
+        var txt = document.createTextNode(xmlHttp.responseText);
+        divItem.appendChild(txt);
+
+        
+        document.getElementById("response-updateschema").insertBefore(divItem, document.getElementById('response-updateschema').firstChild);
+
         return xmlHttp.responseText;
-    };
+    }
 
     $scope.searchMovieDB();
 });
+
+
+
+function Call($name, $phoneBgn, $phoneEnd) {
+
+    if ($name != "") {
+
+        document.getElementById("name").value = $name;
+    }
+
+    if ($phoneBgn != "") {
+
+        document.getElementById("phone-bgn").value = $phoneBgn;
+    }
+
+    if ($phoneEnd != "") {
+        document.getElementById("phone-end").value = $phoneEnd;
+    }
+
+    var theUrl = window.urlDoCall +
+        "?name=" + document.getElementById("name").value +
+        "&phonebgn=" + document.getElementById("phone-bgn").value +
+        "&phoneend=" + document.getElementById("phone-end").value;
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", theUrl, false); // false for synchronous request
+    xmlHttp.send(null);
+    var divItem = document.createElement("div");
+    divItem.setAttribute("class", "item item-button-right");
+    var txt = document.createTextNode(document.getElementById("phone-bgn").value + " на " + document.getElementById("phone-end").value);
+    divItem.appendChild(txt);
+
+    var buttonElem = document.createElement("button");
+    buttonElem.setAttribute("class", "button button-positive");
+    //  buttonElem.setAttribute("ng-click", "doCall('33', '45')");
+    buttonElem.setAttribute("onclick", "Call('" + document.getElementById("name").value + "', '" + document.getElementById("phone-bgn").value + "', '" + document.getElementById("phone-end").value + "')");
+
+    var iconElem = document.createElement("i");
+    iconElem.setAttribute("class", "icon ion-ios-telephone");
+
+    buttonElem.appendChild(iconElem);
+    divItem.appendChild(buttonElem);
+
+
+    //var text = xmlHttp.responseText;
+
+    //var p = document.createElement("p");
+    //var txt = document.createTextNode(text);
+    //p.appendChild(txt);
+    document.getElementById("response").insertBefore(divItem, document.getElementById('response').firstChild);
+
+    return xmlHttp.responseText;
+}

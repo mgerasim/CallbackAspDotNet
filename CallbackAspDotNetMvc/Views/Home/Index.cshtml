@@ -1,14 +1,15 @@
 ﻿
+@model List<CallbackAspDotNetMvc.Models.Call>
 <script>
-        var urlDoCall =  "@Url.Action("doCall", "Home")";
+    var urlDoCall = "@Url.Action("doCall", "Home")";
+    var urlUpdateSchema = "@Url.Action("UpdateSchema", "Home")";
 </script>
-
 
 
 <script id="templates/tabs.html" type="text/ng-template">
     <ion-tabs class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
         
-        <ion-tab title="Вызов" icon="ion-email" href="#/tab/call">
+        <ion-tab title="Вызов" icon="ion-paper-airplane" href="#/tab/call">
             <ion-nav-view name="call-tab"></ion-nav-view>
         </ion-tab>
         
@@ -30,17 +31,60 @@
         <ion-content>
             <div class="list">
                 <label class="item item-input">
-                    <input type="text" id="phone-bgn" placeholder="Телефон А: 79241112233">
+                    <input type="text" id="name" placeholder="Наименование шаблона вызова">
+                </label>
+
+                <label class="item item-input">
+                    <input type="tel" id="phone-bgn" placeholder="Телефон А: 79241112233">
                 </label>
                 <label class="item item-input">
-                    <input type="text" id="phone-end" placeholder="Телефон B: 79143332211">
+                    <input type="tel" id="phone-end" placeholder="Телефон B: 79143332211">
                 </label>
 
             </div>
 
-            <button class="button button-full button-positive icon-right ion-chevron-right" ng-click="doCall()">
+            
+            <button class="button button-full button-positive icon-right ion-chevron-right" ng-click="doCall('', '','')">
                 Выполнить
             </button>
+            <p id="response" class="list">
+
+@if (ViewBag.Error != "")
+{
+    <p>
+                        @ViewBag.Error
+                    </p>
+}
+else
+{
+    
+               foreach (var item in Model)
+                {
+                    <div class="item item-button-right">
+
+                        @if (@item.Name.IsEmpty())
+                        {
+                            <text>
+                                @item.phoneBgn &emsp; -> &emsp; @item.phoneEnd
+                            </text>
+                        }
+                        else
+                        {
+                            <text>
+                                @item.Name - @item.phoneBgn &emsp; -> &emsp; @item.phoneEnd
+                            </text>
+                        }
+
+                        <span class="badge badge-assertive">@item.CallsCount</span>
+
+                        <button class="button button-positive" ng-click="doCall('@(item.Name)','@(item.phoneBgn)','@(item.phoneEnd)')">
+                            <i class="icon ion-ios-telephone"></i>
+                        </button>
+
+                    </div>
+                }
+}
+            </div>
 
         </ion-content>
     </ion-view>
@@ -61,6 +105,7 @@
                         <h2><strong>{{movie.original_title}}</strong></h2>
                         <h4>Release Date: <strong>{{movie.release_date}}</strong></h4>
                         <h4>Average score: <strong>{{movie.vote_average}}</strong></h4>
+                       
                     </a>
 
                 </div>
@@ -69,8 +114,16 @@
     </ion-view>
 </script>
 <script id="templates/settings.html" type="text/ng-template">
-    <ion-view view-title="Application Settings">
+    <ion-view view-title="Настройки приложения">
         <ion-content>
+            <button class="button button-full button-positive icon-right ion-chevron-right" ng-click="UpdateSchema()">
+                Обновить схему
+            </button>
+
+            <div id="response-updateschema" class="list">
+
+            </div>
+
             <div class="list">
                 <label class="item item-input item-floating-label">
                     <span class="input-label"><strong>API Key<strong></span>

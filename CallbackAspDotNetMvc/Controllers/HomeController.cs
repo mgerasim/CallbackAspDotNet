@@ -1,4 +1,6 @@
 ﻿using AMS.Profile;
+using CallbackAspDotNetMvc.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace CallbackAspDotNetMvc.Controllers
 {
@@ -16,10 +19,44 @@ namespace CallbackAspDotNetMvc.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                ViewBag.Error = "";
+                List<Call> theList = Call.GetAll();
+                return View(theList);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+
+                string err = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    ViewBag.Error += ": " + ex.InnerException.Message;
+                }
+
+                return View();
+            }
         }
 
-        public ActionResult doCall(string phoneBgn, string phoneEnd)
+        public ActionResult UpdateSchema()
+        {
+            try
+            {
+                CallbackAspDotNetMvc.Common.NHibernateHelper.UpdateSchema();
+            }
+            catch (Exception ex)
+            {
+                string err = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    err += ": " + ex.InnerException.Message;
+                }
+                return Content(err);
+            }
+            return Content("База данных успешно обновлена!");
+        }
+        public ActionResult doCall(string Name, string phoneBgn, string phoneEnd)
         {
             try
             {
@@ -41,14 +78,52 @@ namespace CallbackAspDotNetMvc.Controllers
                 var response = (HttpWebResponse)request.GetResponse();
 
                 var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                
+                Call theCall = Call.GetByCall(phoneBgn, phoneEnd);
+                if (theCall == null) {
+                    theCall = new Call();
+                    theCall.Name = Name;
+                    theCall.phoneBgn = phoneBgn;
+                    theCall.phoneEnd = phoneEnd;
+                    theCall.Save();
+                }
+                else
+                {
+                    theCall.CallsCount++;
+                    theCall.Name = Name;
+                    theCall.Update();
+                }
 
-                return Content("");
+                var serializer = new JavaScriptSerializer();
+
+                // For simplicity just use Int32's max value.
+                // You could always read the value from the config section mentioned above.
+                serializer.MaxJsonLength = Int32.MaxValue;
+
+                var resultData = new { phone_bgn = phoneBgn, phone_end = phoneEnd, result = responseString };
+                var result = new ContentResult
+                {
+                    Content = serializer.Serialize(resultData),
+                    ContentType = "application/json"
+                };
+                return result;
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                var serializer = new JavaScriptSerializer();
+
+                // For simplicity just use Int32's max value.
+                // You could always read the value from the config section mentioned above.
+                serializer.MaxJsonLength = Int32.MaxValue;
+
+                var resultData = new { phone_bgn = phoneBgn, phone_end = phoneEnd, error = ex.Message };
+                var result = new ContentResult
+                {
+                    Content = serializer.Serialize(resultData),
+                    ContentType = "application/json"
+                };
+                return result;
             }
-            return Content("");
         }
     }
 }
