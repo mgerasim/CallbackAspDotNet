@@ -49,7 +49,7 @@ namespace CallbackAspDotNetMvc.Controllers
             try
             {
                 Benzin model = Benzin.GetById(id);
-                model.payed_at = DateTime.Now;// Convert.ToDateTime(collection.Get("payed_at"));
+                model.payed_at = Convert.ToDateTime(collection.Get("payed_at"));
                 model.probeg = Convert.ToInt32(collection.Get("probeg"));
                 model.litrs = Convert.ToInt32(collection.Get("litrs"));
                 model.summa = Convert.ToDecimal(collection.Get("summa"));

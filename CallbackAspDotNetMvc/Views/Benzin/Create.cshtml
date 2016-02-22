@@ -17,7 +17,7 @@
 @{
     ViewBag.Title = "Добавить заправку";
 }
-@using (Html.BeginForm("Create", "Emp", null,
+@using (Html.BeginForm("Create", "Benzin", null,
     FormMethod.Post, new { @class = "form-horizontal" }))
 {
     
@@ -34,7 +34,7 @@
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker1').datepicker({
-                    format: "mm.dd.yyyy",
+                    format: "dd.mm.yyyy",
                     language: "ru",
                     autoclose: true
                 });
