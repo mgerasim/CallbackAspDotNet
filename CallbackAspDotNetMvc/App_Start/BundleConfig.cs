@@ -26,8 +26,29 @@ namespace CallbackAspDotNetMvc
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                         "~/Scripts/app.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/controllers").Include(
+                        "~/Scripts/controllers.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/app-auth").Include(
+                        "~/Scripts/app-auth.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                        "~/Scripts/bootstrap.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap-datetimepicker").Include(
+                        "~/Scripts/bootstrap-datepicker.js"));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/ionic").Include(
+                        "~/Scripts/ionic.bundle.js"));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/ionic.css", "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css"));
+
+            bundles.Add(new StyleBundle("~/Content/bootstrap-datetimepicker").Include("~/Content/bootstrap-datepicker3.css"));
+
+            
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
                         "~/Content/themes/base/jquery.ui.resizable.css",

@@ -1,0 +1,159 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = "~/Views/Shared/_LayoutAuth.cshtml";
+}
+@{
+    ViewBag.Title = "Index";
+}
+<script>
+    var urlTelephone = "@Url.Action("Telephone", "Auth")";
+    var urlCode = "@Url.Action("Code", "Auth")";
+    var urlPerson = "@Url.Action("Person", "Auth")";
+</script>
+
+<script id="tabs.html" type="text/ng-template">
+    <tabs tabs-style="tabs-icon-top" tabs-type="tabs-positive">
+        <tab title="Регистрация" icon="ion-person-add" href="#/tab/signup">
+            <nav-view name="signup-tab"></nav-view>
+        </tab>
+        <tab title="Вход" icon="ion-log-in" href="#/tab/signin">
+            <nav-view name="signin-tab"></nav-view>
+        </tab>
+        <tab title="Помощь" icon="ion-information-circled" href="#/tab/about">
+            <nav-view name="about-tab"></nav-view>
+        </tab>
+    </tabs>
+</script>
+
+<script id="signup.html" type="text/ng-template">
+    <view title="'Регистрация'">
+        <content has-header="true" padding="true">
+            <p>
+                Укажите номер Вашего сотового телефона для регистрации:
+            </p>
+            <div class="list">
+                <label class="item item-input">
+                    <i class="icon placeholder-icon ion-android-textsms"></i>
+                    <input id="telephone" ng-model="signup.telephone" ng-change="changePhone()"  type="text" placeholder="79992224455">
+                </label>
+
+            </div>
+            <p>
+                <a class="button icon icon-right ion-chevron-right" ng-click="doTelephone()" href="#/tab/code">Следующий шаг 2/3</a>
+            </p>
+
+            <p>
+                Номер сотового телефона необходим, чтобы связать удаленного собеседника с Вами и для восстановления защитного кода. <br />
+                Отправка рекламных сообщений исключается!
+            </p>
+        </content>
+    </view>
+</script>
+
+<script id="code.html" type="text/ng-template">
+    <view title="'Проверочный код'">
+        <content has-header="true" padding="true">
+            <p>
+                На Ваш номер отправлен проверочный код!
+            </p>
+            <p>
+                Пожалуйста, укажите его:
+            </p>
+            <div class="list">
+                <label class="item item-input">
+                    <i class="icon placeholder-icon ion-key"></i>
+                    <input type="text" id="code" ng-model="signup.code" placeholder="Укажите проверочный код">
+                </label>
+            </div>
+            <p>
+                <a class="button icon icon-right ion-chevron-right" ng-click="doCode()">Следующий шаг 3/3</a>
+            </p>
+
+        </content>
+    </view>
+</script>
+
+
+<script id="person.html" type="text/ng-template">
+    <view title="'Личные данные'">
+        <content has-header="true" padding="true">
+            <p>
+                Пожалуйста, укажите как к Вам обращаться:
+            </p>
+            <div class="list">
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Имя</span>
+                    <input type="text" id="firstname" ng-model="signup.person.firstname" placeholder="">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Фамилия</span>
+                    <input type="text" id="lastname" ng-model="signup.person.lastname" placeholder="">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Отчество</span>
+                    <input type="text" id="secondname" ng-model="signup.person.secondname" placeholder="">
+                </label>
+            </div>
+            <p>
+                <a class="button icon icon-right ion-chevron-right" ng-click="doPerson()" href="#/tab/person">Завершить регистрацию</a>
+            </p>
+
+        </content>
+    </view>
+</script>
+
+
+<script id="success.html" type="text/ng-template">
+    <view title="'Успешно!'">
+        <content has-header="true" padding="true">
+            <p>
+                Регитсрация прошла полностью!
+            </p>
+            <p>
+                Благодарим за уделенное время. Мы уверены, что используя наш сервис Вы останитесь довольны!
+            </p>
+
+            <p>
+                С уважением, Команда сервиса.
+            </p>
+            
+
+        </content>
+    </view>
+</script>
+
+<script id="signin.html" type="text/ng-template">
+    <view title="'Вход'">
+        <content has-header="true" padding="true">
+            <p>
+                Example of Ionic tabs. Navigate to each tab, and
+                navigate to child views of each tab and notice how
+                each tab has its own navigation history.
+            </p>
+            <p>
+                <a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Scientific Facts</a>
+            </p>
+        </content>
+    </view>
+</script>
+
+
+<script id="about.html" type="text/ng-template">
+    <view title="'Помощь'">
+        <content has-header="true" padding="true">
+            <p>
+                Укажите номер Вашего сотового телефона для регистрации:
+            </p>
+
+            <p>
+                Номер сотового телефона необходим, что связать удаленного собеседника с Вами и для восстановления защитного кода. <br />
+                Отправка рекламмных сообщений исключается!
+            </p>
+            <p>
+                <a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Scientific Facts</a>
+            </p>
+        </content>
+    </view>
+</script>
