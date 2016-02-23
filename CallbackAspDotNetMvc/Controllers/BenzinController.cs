@@ -11,6 +11,11 @@ namespace CallbackAspDotNetMvc.Controllers
     {
         //
         // GET: /Benzin/
+        public ActionResult Control()
+        {
+            Control theControl = new Control();
+            return View(theControl);
+        }
         public ActionResult Index()
         {
             List<Benzin> theBenzinList = Benzin.GetAll();

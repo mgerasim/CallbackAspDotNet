@@ -1,0 +1,46 @@
+﻿@model CallbackAspDotNetMvc.Models.Control
+
+@{
+    Layout = "~/Views/Shared/_LayoutBenzin.cshtml";
+}
+
+@{
+    ViewBag.Title = "Контроль учёта";
+}
+
+<div class="row">
+    <div class="col-sm-2">
+        Расход литров на 100 км
+    </div>
+    <div class="col-sm-2">
+        @Model.RashodOn100km
+    </div>
+    <div class="col-sm-10">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table">
+            <tbody>
+                @foreach (var item in Model._GroupMonth.theDataList)
+                {
+                    <tr>
+                        <td>
+                            @item.TotalKm
+                        </td>
+                        <td>
+                            @item.TotalLitrs
+                        </td>
+                        <td>
+                            @item.Month
+                        </td>
+                        <td>
+                            @item.Year
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
