@@ -53,13 +53,10 @@ namespace CallbackAspDotNetMvc.Repositories
             using (ISession session = NHibernateHelper.OpenSession())
                 return session.CreateCriteria<CallbackAspDotNetMvc.Models.Benzin>().Add(Restrictions.Eq("ID", id)).UniqueResult<CallbackAspDotNetMvc.Models.Benzin>();
         }
-
-        public CallbackAspDotNetMvc.Models.Benzin GetByCall(string phoneBgn, string phoneEnd)
+        public CallbackAspDotNetMvc.Models.Benzin GetByPayed(DateTime payed)
         {
             using (ISession session = NHibernateHelper.OpenSession())
-                return session.CreateCriteria<CallbackAspDotNetMvc.Models.Benzin>().Add(Restrictions.Eq("phoneBgn", phoneBgn))
-                    .Add(Restrictions.Eq("phoneEnd", phoneEnd))
-                    .UniqueResult<CallbackAspDotNetMvc.Models.Benzin>();
+                return session.CreateCriteria<CallbackAspDotNetMvc.Models.Benzin>().Add(Restrictions.Eq("payed_at", payed)).UniqueResult<CallbackAspDotNetMvc.Models.Benzin>();
         }
 
         IList<CallbackAspDotNetMvc.Models.Benzin> IRepository<CallbackAspDotNetMvc.Models.Benzin>.GetAll()
@@ -67,7 +64,7 @@ namespace CallbackAspDotNetMvc.Repositories
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 ICriteria criteria = session.CreateCriteria(typeof(CallbackAspDotNetMvc.Models.Benzin));
-                criteria.AddOrder(Order.Desc("updated_at"));
+                criteria.AddOrder(Order.Desc("payed_at"));
                 return criteria.List<CallbackAspDotNetMvc.Models.Benzin>();
             }
         }

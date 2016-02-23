@@ -7,9 +7,10 @@
     <property name="connection.connection_string">Data Source=10.8.3.180;Initial Catalog=pogoda;Integrated Security=False;User ID=bulletin;Password=VA1IXC;Connect Timeout=120;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False</property>
     -->
     <!--
-    <property name="connection.connection_string">Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False</property>
-    -->
     
+    <property name="connection.connection_string">Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False</property>
+    
+    -->
     <property name="connection.connection_string">Data Source=callback.mssql.somee.com;Persist Security Info=True;User ID=mgerasim_SQLLogin_1;Password=fkyw6sogkf</property>
 
     <!--

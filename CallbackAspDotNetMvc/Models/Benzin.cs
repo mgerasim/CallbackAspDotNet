@@ -34,6 +34,19 @@ namespace CallbackAspDotNetMvc.Models
             repo.Update(this);
         }
 
+        public virtual void SaveOrUpdate()
+        {
+            Benzin benzin = Benzin.GetByPayed(this.payed_at);
+            if (benzin == null)
+            {
+                this.Save();
+            }
+            else
+            {
+                this.Update();
+            }
+        }
+
         public static List<Benzin> GetAll()
         {
             CallbackAspDotNetMvc.Common.IRepository<Benzin> repo = new Repositories.BenzinRepository();
@@ -44,6 +57,11 @@ namespace CallbackAspDotNetMvc.Models
         {
             CallbackAspDotNetMvc.Common.IRepository<Benzin> repo = new Repositories.BenzinRepository();
             return repo.GetById(ID);
+        }
+        public static Benzin GetByPayed(DateTime payed)
+        {
+            var repo = new Repositories.BenzinRepository();
+            return repo.GetByPayed(payed);
         }
         public virtual void Delete()
         {
