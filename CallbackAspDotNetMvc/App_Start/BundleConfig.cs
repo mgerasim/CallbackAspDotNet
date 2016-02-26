@@ -23,6 +23,9 @@ namespace CallbackAspDotNetMvc
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/highcharts").Include(
+                        "~/Scripts/Highcharts-4.0.1/js/highcharts.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                         "~/Scripts/app.js"));
 

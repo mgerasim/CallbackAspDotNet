@@ -1,5 +1,10 @@
 ﻿@model CallbackAspDotNetMvc.Models.Control
 
+@section Scripts
+{
+    @Scripts.Render("~/bundles/highcharts")
+}
+
 @{
     Layout = "~/Views/Shared/_LayoutBenzin.cshtml";
 }
@@ -17,6 +22,63 @@
     </div>
     <div class="col-sm-10">
     </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div id="chart-container">
+           
+        </div>
+
+        <script>
+
+            $(function () {
+                $('#chart-container').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Расход бензина на 100 км по месяцам'
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: [
+                            @Html.Raw(Model._GroupMonth.HighchartsCategory)
+                            
+                        ],
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Расход бензина (литр)'
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '                    <tr>                        <td style="color:{series.color};padding:0">{series.name}: </td><td style="padding:0"><b>{point.y:.1f} литр</b></td>            </tr>',
+            footerFormat: '        </table>',
+            shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+            },
+            series: [{
+                name: 'Расход бензина на 100 км',
+                data: [@Model._GroupMonth.HighchartsSeriesRashodOn100km]
+
+            }, ]
+            });
+            });
+        </script>
+    </div>
+
 </div>
 
 <div class="row">
@@ -66,3 +128,4 @@
         </table>
     </div>
 </div>
+

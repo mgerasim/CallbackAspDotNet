@@ -49,6 +49,7 @@ namespace CallbackAspDotNetMvc.Models
                 public int Year;
                 public int TotalLitrs;
                 public int TotalKm;
+                
                 public double RashodOn100km
                 {
                     get
@@ -73,6 +74,25 @@ namespace CallbackAspDotNetMvc.Models
             }
 
             public List<DataByMonth> theDataList;
+
+            private string _HighchartsCategory = "";
+            public string HighchartsCategory
+            {
+                get
+                {
+                    return _HighchartsCategory;
+                }
+            }
+
+            private string _HighchartsSeriesRashodOn100km = "";
+            public string HighchartsSeriesRashodOn100km
+            {
+                get
+                {
+                    return _HighchartsSeriesRashodOn100km;
+                }
+            }
+
             public GroupMonth(List<Benzin> theBenzinList)
             {
                 theDataList = new List<DataByMonth>();
@@ -91,8 +111,18 @@ namespace CallbackAspDotNetMvc.Models
                         theBenzinList.Where(x => x.payed_at.Year == dateIdx.Year && x.payed_at.Month == dateIdx.Month).OrderBy(x => x.payed_at).First().probeg ;
                     
                     theDataList.Add(theData);
+
+                    this._HighchartsCategory += "'" + dateIdx.ToString("MM.yyyy") + "'";
+                    this._HighchartsSeriesRashodOn100km += theData.RashodOn100km.ToString().Replace(",", ".");
+                    if (dateIdx != dateEnd)
+                    {
+                        this._HighchartsCategory += ", ";
+                        this._HighchartsSeriesRashodOn100km += ", ";
+                    }
                 }
             }
+
+
         }
     }
 }
