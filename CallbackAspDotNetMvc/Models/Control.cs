@@ -49,13 +49,27 @@ namespace CallbackAspDotNetMvc.Models
                 public int Year;
                 public int TotalLitrs;
                 public int TotalKm;
+                public double RashodOn100km
+                {
+                    get
+                    {
+                        if (this.TotalKm == 0)
+                        {
+                            return 0;
+                        }
+                        return (((double)TotalLitrs / (double)TotalKm) * 100);
+                    }
+
+                }
                 public DataByMonth()
                 {
                     Month = 0;
                     Year = 0;
                     TotalLitrs = 0;
-                    TotalKm = 0; 
+                    TotalKm = 0;
                 }
+
+
             }
 
             public List<DataByMonth> theDataList;
@@ -73,8 +87,9 @@ namespace CallbackAspDotNetMvc.Models
                     theData.Month = dateIdx.Month;
                     theData.Year = dateIdx.Year;
                     theData.TotalLitrs = theBenzinList.Where(x => x.payed_at.Year == dateIdx.Year && x.payed_at.Month == dateIdx.Month).Sum(x => x.litrs);
-                    theData.TotalKm = theBenzinList.Where(x => x.payed_at.Year == dateIdx.Year && x.payed_at.Month == dateIdx.Month).Sum(x => x.probeg);
-
+                    theData.TotalKm = theBenzinList.Where(x => x.payed_at.Year == dateIdx.Year && x.payed_at.Month == dateIdx.Month).OrderBy(x => x.payed_at).Last().probeg - 
+                        theBenzinList.Where(x => x.payed_at.Year == dateIdx.Year && x.payed_at.Month == dateIdx.Month).OrderBy(x => x.payed_at).First().probeg ;
+                    
                     theDataList.Add(theData);
                 }
             }

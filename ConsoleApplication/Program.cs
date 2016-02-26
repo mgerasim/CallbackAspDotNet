@@ -12,11 +12,19 @@ namespace ConsoleApplication
         static void Main(string[] args)
         {
             UpdateSchema();
+            DeleteBenzinAll();
             ImportData();
         }
         static void UpdateSchema()
         {
             CallbackAspDotNetMvc.Common.NHibernateHelper.UpdateSchema();
+        }
+        static void DeleteBenzinAll()
+        {
+            foreach (var item in Benzin.GetAll())
+            {
+                item.Delete();
+            }
         }
         static void ImportData()
         {
@@ -365,16 +373,16 @@ namespace ConsoleApplication
 
             model = new Benzin();
             model.probeg = 262454;
-            model.summa = 559;
-            model.litrs = 15;
+            model.summa = 559+559;
+            model.litrs = 15 +15;
             model.payed_at = new DateTime(2016, 2, 21);
             model.SaveOrUpdate();
             model = null;
 
             model = new Benzin();
             model.probeg = 262630;
-            model.summa = 559 + 538;
-            model.litrs = 15 + 15;
+            model.summa = 538;
+            model.litrs = 15;
             model.payed_at = new DateTime(2016, 2, 26);
             model.SaveOrUpdate();
             model = null;
