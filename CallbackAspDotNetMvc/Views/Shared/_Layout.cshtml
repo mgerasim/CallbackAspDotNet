@@ -1,0 +1,32 @@
+﻿<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
+    <title>Обратный вызов</title>
+    <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet" />
+    <link href="index.css" rel="stylesheet" />
+    <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
+    @Scripts.Render("~/bundles/app")
+</head>
+
+<body ng-controller="HomeCtrl">
+
+    <ion-nav-bar class="bar-balanced">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-nav-view></ion-nav-view>
+
+
+
+
+    @RenderBody()
+
+
+
+</body>
+
+</html>
+

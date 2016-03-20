@@ -1,0 +1,36 @@
+﻿<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
+    <title>Дешёвые звонки через Интернет</title>
+    <link href="http://code.ionicframework.com/0.9.20/css/ionic.css" rel="stylesheet" type="text/css">
+
+    <script src="http://code.ionicframework.com/0.9.20/js/ionic.js"></script>
+    <script src="http://code.ionicframework.com/0.9.20/js/angular/angular.min.js"></script>
+    <script src="http://code.ionicframework.com/0.9.20/js/angular/angular-animate.min.js"></script>
+    <script src="http://code.ionicframework.com/0.9.20/js/angular/angular-touch.min.js"></script>
+    <script src="http://code.ionicframework.com/0.9.20/js/angular/angular-sanitize.min.js"></script>
+    <script src="http://code.ionicframework.com/0.9.20/js/angular-ui/angular-ui-router.min.js"></script>
+    <script src="http://code.ionicframework.com/0.9.20/js/ionic-angular.js"></script>
+
+    @Scripts.Render("~/bundles/controllers")
+</head>
+
+<body ng-app="myApp">
+
+    <nav-bar animation="nav-title-slide-ios7"
+             type="bar-positive"
+             back-button-type="button-icon"
+             back-button-icon="ion-arrow-left-c"></nav-bar>
+
+    <nav-view animation="slide-left-right"></nav-view>
+
+    @RenderBody()
+
+
+
+</body>
+
+</html>
+
