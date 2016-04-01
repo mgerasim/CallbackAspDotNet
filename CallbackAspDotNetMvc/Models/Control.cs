@@ -100,15 +100,16 @@ namespace CallbackAspDotNetMvc.Models
                 DateTime dateBgn = theBenzinList.Min(x => x.payed_at);
                 DateTime dateEnd = theBenzinList.Max(x => x.payed_at);
 
-                for(DateTime dateIdx = dateBgn; dateIdx < dateEnd.AddMonths(1); dateIdx = dateIdx.AddMonths(1))
+                for(DateTime dateIdx = dateBgn; dateIdx < dateEnd.AddMonths(1) && dateIdx.Month != dateEnd.AddMonths(1).Month; dateIdx = dateIdx.AddMonths(1))
                 {
                     DataByMonth theData = new DataByMonth();
 
                     theData.Month = dateIdx.Month;
                     theData.Year = dateIdx.Year;
                     theData.TotalLitrs = theBenzinList.Where(x => x.payed_at.Year == dateIdx.Year && x.payed_at.Month == dateIdx.Month).Sum(x => x.litrs);
-                    theData.TotalKm = theBenzinList.Where(x => x.payed_at.Year == dateIdx.Year && x.payed_at.Month == dateIdx.Month).OrderBy(x => x.payed_at).Last().probeg - 
-                        theBenzinList.Where(x => x.payed_at.Year == dateIdx.Year && x.payed_at.Month == dateIdx.Month).OrderBy(x => x.payed_at).First().probeg ;
+                    
+                    theData.TotalKm = theBenzinList.Where(x => x.payed_at.Year == dateIdx.Year && x.payed_at.Month == dateIdx.Month).OrderBy(x => x.payed_at).Last().probeg -
+                            theBenzinList.Where(x => x.payed_at.Year == dateIdx.Year && x.payed_at.Month == dateIdx.Month).OrderBy(x => x.payed_at).First().probeg;
                     
                     theDataList.Add(theData);
 
