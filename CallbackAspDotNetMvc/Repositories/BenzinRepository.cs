@@ -64,7 +64,7 @@ namespace CallbackAspDotNetMvc.Repositories
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 ICriteria criteria = session.CreateCriteria(typeof(CallbackAspDotNetMvc.Models.Benzin));
-                criteria.AddOrder(Order.Desc("payed_at"));
+                criteria.AddOrder(Order.Desc("payed_at")).AddOrder(Order.Desc("ID"));
                 return criteria.List<CallbackAspDotNetMvc.Models.Benzin>();
             }
         }

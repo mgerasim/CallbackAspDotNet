@@ -34,6 +34,7 @@ namespace CallbackAspDotNetMvc.Controllers
                 Benzin model = new Benzin();
                 model.payed_at = DateTime.ParseExact(collection.Get("payed_at"), "dd.MM.yyyy",
                                   CultureInfo.InvariantCulture);
+
                 model.probeg = Convert.ToInt32(collection.Get("probeg"));
                 model.litrs = Convert.ToInt32(collection.Get("litrs"));
                 model.summa = Convert.ToDecimal(collection.Get("summa"));
