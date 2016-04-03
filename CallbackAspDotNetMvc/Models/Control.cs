@@ -121,6 +121,8 @@ namespace CallbackAspDotNetMvc.Models
                         this._HighchartsSeriesRashodOn100km += ", ";
                     }
                 }
+
+                theDataList = theDataList.OrderByDescending(x => x.Month).OrderByDescending(x => x.Year).ToList(); 
             }
 
 
