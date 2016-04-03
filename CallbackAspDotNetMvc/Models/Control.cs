@@ -108,8 +108,8 @@ namespace CallbackAspDotNetMvc.Models
                     theData.Year = dateIdx.Year;
                     theData.TotalLitrs = theBenzinList.Where(x => x.payed_at.Year == dateIdx.Year && x.payed_at.Month == dateIdx.Month).Sum(x => x.litrs);
                     
-                    theData.TotalKm = theBenzinList.Where(x => x.payed_at.Year == dateIdx.Year && x.payed_at.Month == dateIdx.Month).OrderBy(x => x.payed_at).Last().probeg -
-                            theBenzinList.Where(x => x.payed_at.Year == dateIdx.Year && x.payed_at.Month == dateIdx.Month).OrderBy(x => x.payed_at).First().probeg;
+                    var benzinListInMonth = theBenzinList.Where(x => x.payed_at.Year == dateIdx.Year && x.payed_at.Month == dateIdx.Month).OrderBy(x => x.ID).OrderBy(x => x.payed_at);
+                    theData.TotalKm = benzinListInMonth.Last().probeg - benzinListInMonth.First().probeg;
                     
                     theDataList.Add(theData);
 
