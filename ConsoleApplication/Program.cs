@@ -514,12 +514,19 @@ namespace ConsoleApplication
             model.SaveOrUpdate();
             model = null;
             
-            
             model = new Benzin();
             model.probeg = 264346;
             model.summa = 603;
             model.litrs = 15;
             model.payed_at = new DateTime(2016, 6, 12);
+            model.SaveOrUpdate();
+            model = null;
+            
+            model = new Benzin();
+            model.probeg = 264492;
+            model.summa = 201;
+            model.litrs = 5;
+            model.payed_at = new DateTime(2016, 6, 16);
             model.SaveOrUpdate();
             model = null;
         }
