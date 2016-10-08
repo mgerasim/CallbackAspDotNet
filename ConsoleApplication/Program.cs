@@ -656,6 +656,24 @@ namespace ConsoleApplication
             model.SaveOrUpdate();
             model = null;
             
+           
+            model = new Benzin();
+            model.probeg = 266808;
+            model.summa = 1326;
+            model.litrs = 35;
+            model.payed_at = new DateTime(2016, 10, 01);
+            model.SaveOrUpdate();
+            model = null;
+            
+            
+            model = new Benzin();
+            model.probeg = 267064;
+            model.summa = 575;
+            model.litrs = 15;
+            model.payed_at = new DateTime(2016, 10, 08);
+            model.SaveOrUpdate();
+            model = null;
+            
         }
     }
 }
